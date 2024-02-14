@@ -11,6 +11,6 @@ class Facility extends Model
 
     public function churches()
     {
-        return $this->belongsToMany(Church::class, 'church_facility');
+        return $this->belongsToMany(Church::class, 'church_facility', 'facility_id', 'church_id');
     }
 }

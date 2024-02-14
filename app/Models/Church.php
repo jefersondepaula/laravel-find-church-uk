@@ -9,6 +9,41 @@ class Church extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'latitude', 'longitude',
+    ];
+
+    /*
+    / Definir Scopes Locais
+    */
+
+    // Scope para filtrar por religião
+    public function scopeFilterByReligion($query, $religionId)
+    {
+        return $query->when($religionId, function ($q) use ($religionId) {
+            $q->where('religion_id', $religionId);
+        });
+    }
+
+    // Scope para filtrar por idioma do serviço
+    public function scopeFilterByLanguage($query, $languageId)
+    {
+        return $query->when($languageId, function ($q) use ($languageId) {
+            $q->whereHas('services', function ($subQuery) use ($languageId) {
+                $subQuery->where('language_id', $languageId);
+            });
+        });
+    }
+
+    // Scope para filtrar dia da semana
+    public function scopeFilterByDayOfWeek($query, $dayOfWeek) {
+        return $query->when($dayOfWeek, function($q) use ($dayOfWeek){
+            $q->whereHas('services', function ($subQuery) use ($dayOfWeek) {
+                $subQuery->where('day_of_week', $dayOfWeek);
+            });
+        });
+    }
+
     // Relação Church-User: muitos-para-um
     public function user()
     {
@@ -41,6 +76,11 @@ class Church extends Model
 
     public function facilities()
     {
-        return $this->belongsToMany(Facility::class, 'church_facility');
+        return $this->belongsToMany(Facility::class, 'church_facility', 'church_id', 'facility_id');
+    }
+
+    public function address()
+    {
+        return $this->hasOne(Address::class);
     }
 }

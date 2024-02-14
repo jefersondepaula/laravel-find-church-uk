@@ -19,7 +19,7 @@ class ChurchFactory extends Factory
         return [
             'user_id' => \App\Models\User::factory(),
             'name' => $this->faker->company(),
-            'address' => $this->faker->address(),
+            //'address' => $this->faker->address(),
             'latitude' => $this->faker->latitude(),
             'longitude' => $this->faker->longitude(),
             'religion_id' => \App\Models\Religion::factory(),

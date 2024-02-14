@@ -1,6 +1,7 @@
 <?php
 namespace Database\Seeders;
 
+use App\Models\Address;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Religion;
@@ -19,7 +20,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // Criando roles primeiro para evitar problemas de chave estrangeira
-        Role::factory(50)->create();
+        Role::factory(20)->create();
 
         // Criar facilidades
         Facility::factory(10)->create();
@@ -28,7 +29,7 @@ class DatabaseSeeder extends Seeder
         ServiceLanguage::factory()->count(5)->create();
 
         // Criando users e assinaturas
-        User::factory(50)->create()->each(function ($user) {
+        User::factory(20)->create()->each(function ($user) {
             // Supondo que cada usuário possa ter uma assinatura
             Subscription::factory()->create(['user_id' => $user->id]);
 
@@ -39,15 +40,21 @@ class DatabaseSeeder extends Seeder
         });
 
         // Criando registros para as demais tabelas
-        Religion::factory(50)->create();
+        Religion::factory(20)->create();
 
-        Church::factory(50)->create()->each(function ($church) {
+        Church::factory(200)->create()->each(function ($church) {
             // Cada igreja pode ter múltiplos serviços, fotos e eventos
             Service::factory(rand(1, 5))->create(['church_id' => $church->id]);
             Photo::factory(rand(1, 10))->create(['church_id' => $church->id]);
             Event::factory(rand(1, 3))->create(['church_id' => $church->id]);
+            Address::factory()->create([
+                'church_id' => $church->id,
+                'latitude' => $church->latitude,
+                'longitude' => $church->longitude,
+            ]);
+
             // Anexar entre 1 a 3 facilidades aleatórias por igreja
-            $facilities = Facility::inRandomOrder()->take(1, 3)->pluck('id');
+            $facilities = Facility::inRandomOrder()->take(rand(1, 3))->pluck('id');
             $church->facilities()->attach($facilities);
         });
 
@@ -56,6 +63,6 @@ class DatabaseSeeder extends Seeder
             $service->save();
         });
 
-        Plan::factory(50)->create();
+        Plan::factory(20)->create();
     }
 }
