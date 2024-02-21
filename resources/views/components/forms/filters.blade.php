@@ -1,4 +1,4 @@
-<div class="p-5 bg-slate-100 opacity-90 w-96 rounded-md shadow-2xl">
+<div class="p-5 bg-slate-100 opacity-90 rounded-md shadow-2xl">
     <h2 class="font-bold">Filtrar Igrejas</h2><br>
     <form action="{{ route('home') }}" method="GET" class="flex flex-wrap gap-4">
         <!-- Filtro por Religião -->

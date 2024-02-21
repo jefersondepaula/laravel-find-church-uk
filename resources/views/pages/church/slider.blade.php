@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 @endpush
 
-<div class="swiper mySwiper h-[800px]">
+<div class="swiper mySwiper h-[550px]">
     <div class="swiper-wrapper">
         <div class="swiper-slide bg-cover bg-center bg-no-repeat" style="background-image: url('/assets/img/ground.png')">
 

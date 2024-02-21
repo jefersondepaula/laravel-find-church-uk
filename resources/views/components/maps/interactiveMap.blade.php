@@ -10,12 +10,8 @@
 @endpush
 
 {{-- Conteúdo do componente do mapa aqui --}}
-
-
-<div id="mapid" style="height: 600px;" class="mt-5"></div>
-
-
-
+<div id="mapid" style="height: 100vh;" class="mt-5">
+</div>
 
 {{-- Empurra os scripts do Leaflet para o final do body --}}
 @push('scripts')
@@ -79,7 +75,6 @@
         popupAnchor: [-3, -76] // Ponto a partir do qual o popup deve abrir em relação ao iconAnchor
     });
 
-
     // document.addEventListener('DOMContentLoaded', function() {
     // var churchCards = document.querySelectorAll('.card-church-filtered');
 
@@ -120,8 +115,6 @@
         // Adiciona o grupo de marcadores ao mapa
         map.addLayer(markers);
     });
-
-
 
 </script>
 @endpush

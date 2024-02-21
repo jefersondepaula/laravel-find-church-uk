@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
+use App\Repositories\ChurchRepository;
+use App\Repositories\ChurchRepositoryInterface;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -13,6 +14,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         //
+        $this->app->bind(ChurchRepositoryInterface::class, ChurchRepository::class);
     }
 
     /**

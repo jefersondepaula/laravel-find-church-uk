@@ -1,4 +1,4 @@
-<h1 class="font-bold">Igrejas em Destaque</h1><br>
+<h1 class="font-bold py-5 text-xl">Igrejas em Destaque</h1><br>
 <div class="churchers flex flex-wrap gap-5">
     @foreach ($featuredChurches as $church)
         <div class="card w-72 bg-[#E6A57E] border border-cyan-100 p-3">

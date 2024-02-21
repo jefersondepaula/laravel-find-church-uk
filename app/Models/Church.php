@@ -44,6 +44,77 @@ class Church extends Model
         });
     }
 
+    // Scope para filtar por facilidade
+    public function scopeFilterByFacility($query, $facilityId) {
+        return $query->when($facilityId, function($q) use ($facilityId){
+            $q->whereHas('facilities', function($subQuery) use ($facilityId){
+                $subQuery->where('facility_id', $facilityId);
+            });
+        });
+    }
+
+    // Scope filter by town
+    public function scopeFilterByTown($query, $town) {
+        return $query->when($town, function ($q) use ($town) {
+            $q->whereHas('address', function ($subQuery) use ($town) {
+                $he = $subQuery->where('town', '=', $town);
+
+                // dd($he->toSql(), $he->getBindings());
+            });
+        });
+    }
+
+    public function scopeFilterByCounty($query, $county) {
+        return $query->when($county, function ($q) use ($county) {
+            $q->whereHas('address', function ($subQuery) use ($county) {
+                $subQuery->where('county', '=', $county);
+            });
+        });
+    }
+
+    public function scopeFilterByCongregationSize($query, $size) {
+        return $query->when($size, function ($q) use ($size) {
+            switch ($size) {
+                case '1':
+                    $q->where('congregation_size', '<', 50);
+                    break;
+                case '2':
+                    $q->whereBetween('congregation_size', [50, 100]);
+                    break;
+                case '3':
+                    $q->whereBetween('congregation_size', [100, 150]);
+                    break;
+                case '4':
+                    $q->whereBetween('congregation_size', [150, 200]);
+                    break;
+                case '5':
+                    $q->whereBetween('congregation_size', [200, 250]);
+                    break;
+                case '6':
+                    $q->whereBetween('congregation_size', [250, 300]);
+                    break;
+                case '7':
+                    $q->whereBetween('congregation_size', [300, 350]);
+                    break;
+                case '8':
+                    $q->whereBetween('congregation_size', [350, 400]);
+                    break;
+                case '9':
+                    $q->whereBetween('congregation_size', [400, 450]);
+                    break;
+                case '10':
+                    $q->whereBetween('congregation_size', [450, 500]);
+                    break;
+                default:
+
+                    break;
+            }
+        });
+    }
+
+
+
+
     // Relação Church-User: muitos-para-um
     public function user()
     {
