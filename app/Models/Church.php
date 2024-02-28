@@ -10,14 +10,9 @@ class Church extends Model
     use HasFactory;
 
     protected $fillable = [
-        'latitude', 'longitude',
+        'user_id', 'name', 'address', 'latitude', 'longitude', 'religion_id', 'description', 'contact_info', 'website', 'phone_number', 'is_featured', 'featured_until'
     ];
 
-    /*
-    / Definir Scopes Locais
-    */
-
-    // Scope para filtrar por religião
     public function scopeFilterByReligion($query, $religionId)
     {
         return $query->when($religionId, function ($q) use ($religionId) {
@@ -25,7 +20,7 @@ class Church extends Model
         });
     }
 
-    // Scope para filtrar por idioma do serviço
+
     public function scopeFilterByLanguage($query, $languageId)
     {
         return $query->when($languageId, function ($q) use ($languageId) {
@@ -35,7 +30,7 @@ class Church extends Model
         });
     }
 
-    // Scope para filtrar dia da semana
+
     public function scopeFilterByDayOfWeek($query, $dayOfWeek) {
         return $query->when($dayOfWeek, function($q) use ($dayOfWeek){
             $q->whereHas('services', function ($subQuery) use ($dayOfWeek) {

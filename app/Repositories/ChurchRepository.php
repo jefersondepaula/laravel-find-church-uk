@@ -52,8 +52,6 @@ class ChurchRepository implements ChurchRepositoryInterface
             $query->filterByCongregationSize($filters['congregationSize']);
         }
 
-
-
         return $query->get();
     }
 

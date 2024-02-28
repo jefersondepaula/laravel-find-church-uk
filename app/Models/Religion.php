@@ -9,6 +9,10 @@ class Religion extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name'
+    ];
+
     public function churches() {
         return $this->hasMany(Church::class, 'religion_id');
     }
